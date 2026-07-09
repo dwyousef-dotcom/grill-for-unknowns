@@ -55,6 +55,8 @@ This skill is substantially inspired by, and should be treated as a Hermes adapt
   https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling
 - Matt Pocock’s `grilling` skill:  
   https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md
+- Matt Pocock’s `writing-great-skills` skill-authoring guidance:  
+  https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills
 
 The core `grill-with-docs` idea is:
 
@@ -100,7 +102,8 @@ grill-for-unknowns/
 ├── README.md
 ├── references/
 │   ├── upstream-lineage.md
-│   └── domain-modeling-add-on.md
+│   ├── domain-modeling-add-on.md
+│   └── writing-great-skills-audit.md
 └── templates/
     ├── ADR.md
     ├── CONTEXT.md
