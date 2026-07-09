@@ -1,0 +1,32 @@
+{
+  "name": "grill-for-unknowns",
+  "version": "0.1.0",
+  "description": "Agent skill for docs-grounded grilling, unknown discovery, and shared understanding before implementation",
+  "license": "MIT",
+  "homepage": "https://github.com/nicobailon/grill-for-unknowns#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicobailon/grill-for-unknowns.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicobailon/grill-for-unknowns/issues"
+  },
+  "keywords": [
+    "agent-skill",
+    "prompting",
+    "planning",
+    "unknowns",
+    "grilling",
+    "domain-modeling",
+    "codex",
+    "claude-code",
+    "hermes"
+  ],
+  "files": [
+    "plugins/grill-for-unknowns",
+    "README.md",
+    "CHANGELOG.md",
+    "NOTICE.md",
+    "LICENSE"
+  ]
+}
