@@ -1,7 +1,7 @@
 ---
 name: grill-for-unknowns
 description: Use when starting or reviewing a complex implementation where the user wants an agent to interrogate the plan against docs/source evidence, surface unknown unknowns, and avoid rushing into build mode. Combines docs-grounded grilling with a map-vs-territory unknowns pass.
-version: 1.0.0
+version: 0.1.0
 author: Hermes Agent
 license: MIT
 metadata:
@@ -44,12 +44,14 @@ Supporting files:
 - `templates/grill-session.md` — working document for a full grill/unknowns session.
 - `templates/CONTEXT.md` — lightweight glossary template.
 - `templates/ADR.md` — minimal ADR template.
+- `templates/implementation-notes.md` — deviation/unknowns log kept during implementation.
+- `templates/launch-packet.md` — subagent/coding-agent launch packet.
 
 ## When to Use
 
 Use when:
 
-- The user says not to rush implementation, asks for a stronger plan, or wants to use a Fable-style planning/orchestration pass.
+- The user says not to rush implementation, asks for a stronger plan, or wants a rigorous planning pass before orchestrating implementation work.
 - The task depends on unfamiliar docs, APIs, libraries, platform behavior, or source conventions.
 - The user has a vague product/design desire and likely has **unknown knowns**: they will know good/bad when they see it, but cannot fully specify it upfront.
 - The agent is about to spawn subagents or a long-running coding agent and needs a better launch packet.
@@ -79,7 +81,7 @@ Default sequence:
 9. **Create or revise the plan** — make the implementation plan focus on decisions likely to change, not mechanical steps.
 10. **Ask for confirmation before build** — do not enact the plan until the user confirms shared understanding, unless they explicitly authorize proceeding with labeled assumptions.
 11. **During implementation** — keep implementation notes for deviations and newly discovered unknowns.
-12. **Post implementation** — produce an explainer and quiz/review checklist so the user understands what changed.
+12. **Post-implementation** — produce an explainer and quiz/review checklist so the user understands what changed.
 
 ## Unknowns Taxonomy
 
@@ -229,31 +231,7 @@ Do not bury critical architecture decisions under mechanical refactoring steps.
 
 ## During Implementation: Notes and Deviations
 
-For complex work, create a temporary implementation notes file such as `implementation-notes.md` or include an equivalent section in the final report.
-
-Minimum sections:
-
-```md
-# Implementation Notes
-
-## Plan Snapshot
-- <short plan/date/session>
-
-## Decisions Made
-- <decision> — reason/evidence
-
-## Deviations
-- Planned: <original>
-- Actual: <change>
-- Why: <constraint discovered>
-- Risk: <low/med/high>
-
-## New Unknowns
-- <unknown> — resolved by / deferred to / needs user
-
-## Verification
-- <command/test/manual check> — result
-```
+For complex work, create a temporary implementation notes file such as `implementation-notes.md` or include an equivalent section in the final report. Use `templates/implementation-notes.md` for the minimum sections: plan snapshot, decisions made, deviations, new unknowns, and verification.
 
 Default deviation policy:
 
@@ -282,41 +260,7 @@ I want to make sure I understand this change before merging. Give me a concise r
 
 ## Subagent / Coding-Agent Launch Packet
 
-Before spawning a subagent or external coding agent, prepare a launch packet:
-
-```md
-## Goal
-<what to build>
-
-## Map
-<current plan/spec/prototype>
-
-## Territory to inspect first
-- <docs URLs>
-- <source paths>
-- <tests/config>
-- <reference implementations>
-
-## Known knowns
-- <facts>
-
-## Known unknowns
-- <questions and chosen defaults>
-
-## Suspected unknown unknowns
-- <blindspots to check before editing>
-
-## Unknown knowns to preserve
-- <taste/product criteria extracted from prototypes/references>
-
-## Deviation policy
-- Continue if:
-- Stop and ask if:
-- Log deviations in:
-
-## Verification gates
-- <commands/tests/manual checks>
-```
+Before spawning a subagent or external coding agent, prepare a launch packet from `templates/launch-packet.md`. It covers: goal, map, territory to inspect first, the four unknowns categories, deviation policy, and verification gates.
 
 If using multiple subagents, split roles:
 
@@ -362,32 +306,25 @@ Keep implementation-notes.md. If you hit an edge case or docs/source constraint 
 
 1. **Grilling before reading.** Do not ask the user to answer questions that docs/source/tests can answer. Inspect the territory first.
 
-2. **Missing upstream composition.** If adapting another skill, article, framework, or repo workflow, do not stop at the obvious headline behavior. Inspect its linked/referenced skills, support files, and dependency chain before declaring the new skill complete. `grill-with-docs` looked tiny, but its real behavior came from `grilling` + `domain-modeling`.
+2. **Question spam.** The point is fewer, better questions. Ask what changes the build, not every preference.
 
-3. **Accepting the first draft as final.** Treat a newly authored skill as a first pass. Re-read it against the source material and ask what dependency, support file, template, or class-level behavior is missing before calling it done.
+3. **Treating plans as truth.** A plan is a map. If implementation discovers conflicting territory, update the map.
 
-4. **Attribution/license drift.** If this skill is forked or adapted from another public skill/article/repo, keep attribution in `README.md` and preserve upstream license/copyright notices in `LICENSE`. Do not replace upstream copyright with only the local adapter's name.
+4. **Over-constraining the agent.** Too-specific instructions can prevent useful pivots. Define the goal, constraints, and stop/continue rules; leave room for local implementation judgment.
 
-5. **Question spam.** The point is fewer, better questions. Ask what changes the build, not every preference.
+5. **Under-constraining the agent.** Vague prompts cause generic best-practice choices that may not fit the product/codebase. Provide references, docs, taste examples, and acceptance criteria.
 
-6. **Treating plans as truth.** A plan is a map. If implementation discovers conflicting territory, update the map.
+6. **Ignoring unknown knowns.** If the user has taste/product intuition they cannot verbalize, use prototypes and references before implementation becomes expensive to change.
 
-7. **Over-constraining the agent.** Too-specific instructions can prevent useful pivots. Define the goal, constraints, and stop/continue rules; leave room for local implementation judgment.
+7. **No deviation log.** Long-running agents silently make choices. Require implementation notes so the next iteration learns from the territory.
 
-8. **Under-constraining the agent.** Vague prompts cause generic best-practice choices that may not fit the product/codebase. Provide references, docs, taste examples, and acceptance criteria.
-
-9. **Ignoring unknown knowns.** If the user has taste/product intuition they cannot verbalize, use prototypes and references before implementation becomes expensive to change.
-
-10. **No deviation log.** Long-running agents silently make choices. Require implementation notes so the next iteration learns from the territory.
-
-11. **Skipping post-implementation understanding.** A passing test suite is not the same as user understanding. Produce an explainer and, when appropriate, a quiz/checklist before merge.
+8. **Skipping post-implementation understanding.** A passing test suite is not the same as user understanding. Produce an explainer and, when appropriate, a quiz/checklist before merge.
 
 ## Verification Checklist
 
 Before moving from planning to implementation:
 
 - [ ] Relevant docs/source/tests/config were inspected, or the lack of access is stated.
-- [ ] If adapting an external skill/framework/article, linked skills, referenced support files, dependency chains, README attribution, and license/copyright requirements were inspected — not just the headline artifact.
 - [ ] Known knowns, known unknowns, unknown knowns, and suspected unknown unknowns are listed.
 - [ ] Blocking questions are material and include recommended defaults.
 - [ ] Low-risk unknowns are converted into labeled assumptions rather than blocking progress.

@@ -47,3 +47,11 @@ The article's concrete tactics are: blindspot passes, brainstorming/prototypes, 
 4. Use the known/unknown taxonomy to find hidden assumptions before implementation.
 5. Persist crystallized terminology to `CONTEXT.md` and major trade-off decisions to ADRs when appropriate.
 6. Do not build until the user confirms shared understanding, unless the user explicitly asks to proceed with labeled assumptions.
+
+## Authoring notes for maintainers
+
+Lessons from adapting the upstream skills. These are guidance for future edits to this package, not runtime behavior for the skill itself:
+
+- **Inspect the full upstream composition.** Do not stop at the headline artifact when adapting a skill/article/framework. `grill-with-docs` looked tiny, but its real behavior came from its linked `grilling` + `domain-modeling` skills and their support files.
+- **Treat a newly authored skill as a first pass.** Re-read it against the source material and ask what dependency, support file, template, or behavior is missing before calling it done.
+- **Preserve attribution and licenses.** Keep attribution in `README.md` and upstream license/copyright notices in `LICENSE`. Do not replace upstream copyright with only the local adapter's name.

@@ -90,7 +90,9 @@ grill-for-unknowns/
         └── templates/
             ├── ADR.md
             ├── CONTEXT.md
-            └── grill-session.md
+            ├── grill-session.md
+            ├── implementation-notes.md
+            └── launch-packet.md
 ```
 
 ## Credits and lineage
