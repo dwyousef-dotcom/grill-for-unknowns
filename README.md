@@ -111,6 +111,16 @@ Additional inspiration comes from Thariq’s X article:
 - Thariq, “A Field Guide to Fable: Finding Your Unknowns”:  
   https://x.com/trq212/status/2073100352921215386
 
+## How this differs from the upstream skills
+
+The upstream skills are deliberately minimal and compositional: `grilling` is a ~10-line relentless-interview loop, and `grill-with-docs` composes it with `domain-modeling`. `grill-for-unknowns` keeps that core loop and expands it in five ways:
+
+1. **It covers gaps an interview can't see.** The upstream loop only handles known unknowns — questions someone already knows to ask. The four-quadrant taxonomy adds explicit tactics for unknown knowns (the user's unverbalized taste, extracted through cheap prototypes and contrasting references instead of questions the user can't answer) and unknown unknowns (a blindspot pass over docs/source/tests before the interview starts).
+2. **It defines what a good question is.** "Relentless" is a personality, not a quality bar. Here every question must be material, grounded in evidence, and answerable, using a template that forces a citation, a why-it-matters, and a recommended default. Low-risk unknowns become labeled assumptions instead of questions at all.
+3. **It is self-contained.** `grill-with-docs` silently depends on two other skills being installed; an agent that loads only the headline file gets almost nothing. This skill inlines the grilling loop and the domain-modeling rules, so it works dropped into any agent — Hermes, Claude Code, or Codex.
+4. **It extends past the planning boundary.** Upstream ends at "don't build until shared understanding is confirmed." This skill covers what happens after alignment: a launch packet for subagents and long-running coding agents, a deviation policy (continue-and-log vs. stop-and-ask), implementation notes for newly discovered unknowns, and a post-implementation explainer/quiz.
+5. **It produces durable artifacts.** Session ledgers, launch packets, implementation notes, `CONTEXT.md`, and ADRs give the shared understanding a reusable written shape instead of leaving it in the chat transcript.
+
 ## License
 
 MIT. See [`LICENSE`](LICENSE).

@@ -81,16 +81,13 @@ It introduces the useful working taxonomy:
 
 ## How this differs from the upstream skills
 
-The upstream skills are intentionally small and compositional. This Hermes skill expands the composition into a more operational workflow:
+The upstream skills are deliberately minimal and compositional: `grilling` is a ~10-line relentless-interview loop, and `grill-with-docs` composes it with `domain-modeling`. This skill keeps that core loop and expands it in five ways:
 
-1. Inspect docs/source/tests before asking factual questions.
-2. Maintain a session ledger for map, territory, unknowns, and domain language.
-3. Ask one material question at a time, with a recommended answer.
-4. Capture canonical terms in `CONTEXT.md` when appropriate.
-5. Capture durable decisions as ADRs only when they are hard to reverse, surprising without context, and based on a real trade-off.
-6. Produce a subagent/coding-agent launch packet only after shared understanding is reached.
-7. Keep implementation notes for deviations and newly discovered unknowns.
-8. End with an explainer/checklist/quiz when the user needs to understand the change before merge.
+1. **It covers gaps an interview can't see.** The upstream loop only handles known unknowns — questions someone already knows to ask. The four-quadrant taxonomy adds explicit tactics for unknown knowns (the user's unverbalized taste, extracted through cheap prototypes and contrasting references instead of questions the user can't answer) and unknown unknowns (a blindspot pass over docs/source/tests before the interview starts).
+2. **It defines what a good question is.** "Relentless" is a personality, not a quality bar. Here every question must be material, grounded in evidence, and answerable, using a template that forces a citation, a why-it-matters, and a recommended default. Low-risk unknowns become labeled assumptions instead of questions at all.
+3. **It is self-contained.** `grill-with-docs` silently depends on two other skills being installed; an agent that loads only the headline file gets almost nothing. This skill inlines the grilling loop and the domain-modeling rules, so it works dropped into any agent — Hermes, Claude Code, or Codex.
+4. **It extends past the planning boundary.** Upstream ends at "don't build until shared understanding is confirmed." This skill covers what happens after alignment: a launch packet for subagents and long-running coding agents, a deviation policy (continue-and-log vs. stop-and-ask), implementation notes for newly discovered unknowns, and a post-implementation explainer/quiz.
+5. **It produces durable artifacts.** Session ledgers, launch packets, implementation notes, `CONTEXT.md`, and ADRs give the shared understanding a reusable written shape instead of leaving it in the chat transcript.
 
 ## Folder contents
 
